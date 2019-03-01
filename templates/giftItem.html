@@ -1,0 +1,91 @@
+{% extends "parent_layout.html" %}
+	{% block head %}
+		<title>Testing bootstrap cards</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+	{% endblock %}
+	{% block content %}
+		<!-- {% if 'email' in session %}
+			<p> Login as <b>{{session.get('email')}} </b> </p>
+			<p>Id of current user {{current_user}} and category_id of item {{item.id_category}} owner_id of category {{category.id_owner}}  id of category {{category.id_category}} </p>
+		{% else %}
+			<p>	You are not Login </p>
+		{% endif %} -->
+		<div class="container">
+			  <div class="card-group">
+			    <div class="card ">
+			      <div class="card-body text-center bg-light">
+			      	<img src="{{ item.img_url }}" class="mx-auto d-block" style="width:100%;height: 90%">
+			      </div>
+			    </div>
+			    <div class="card bg-light">
+			      <div class="card-body ">
+				      	<dl>
+							<dt>Name :</dt>
+								<center><dd>   {{ item.name }}</dd> </center>
+							<dt>Gift for :</dt>
+								<center><dd> {{ category.name }}</dd></center>
+							<dt>From :</dt>
+								<center><dd> {{ item.madeIn }}</dd></center>
+							<dt>Price :</dt>
+								<center><dd> Rs{{ item.price }}</dd></center>
+							<dt >More info:</dt>
+							<dd > {{ item.additional_info }}</dd>
+						</dl>
+						{% if ((current_user == category.id_owner) and (item.id_category == category.id_category )) %}
+							<a href="{{ url_for('edit_item',idOfCategory=category.id_category,idOfItem=item.id_item) 	}}" class="btn btn-outline-primary btn-block" role="button"> 
+								 edit <i class='far fa-edit' style='color:blue'></i> 
+							</a>
+				
+							<!-- Button to Open the Modal -->
+							<button type="button" class="btn btn-outline-warning btn-block"  data-toggle="modal" data-target="#myModal">
+							remove
+							</button>
+
+						  <!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered">
+						      		<div class="modal-content">
+						      
+								        <!-- Modal Header -->
+								        <div class="modal-header">
+								          <h4 class="modal-title">Removing </h4>
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        </div>
+						        
+								        <!-- Modal body -->
+								        <div class="modal-body">
+								          {{item.name}}
+								        </div>
+						        
+								        <!-- Modal footer -->
+								        <div class="modal-footer">
+											<button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+											<a href="{{ url_for(
+											'deleteItem',
+											idOfCategory = category.id_category,
+											idOfItem = item.id_item)}}" 
+											class=" btn btn-outline-danger btn-block"
+											role="button">
+												yes,remove 
+												<i class="fa fa-trash"></i>
+											</a>
+								        </div>
+						      		</div>
+						    	</div>
+							</div>  
+						{% endif %}
+			      </div>
+			    </div>
+			  </div>
+		</div>
+
+
+	{% endblock %}

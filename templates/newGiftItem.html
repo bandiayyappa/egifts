@@ -1,0 +1,55 @@
+{% extends "parent_layout.html" %}
+
+{% block content %}
+	{% if categories %}
+		<div class="container w-50" >
+			<div class="card bg-light">
+				<form action="{{ url_for('newItem') }}" method="POST" >
+					<div class="card-body">	
+						<div class="form-group">
+							<label for="name">Name of gift item:</label>
+							<input type = "text" id='name' class="form-control form-control-sm" pattern="^[a-zA-z].+[a-zA-z]$" title="name contains characters and space only" name = "item_name" required placeholder = "name of item">
+						</div>
+						<div class="form-group">
+							<label for="price">Price </label>
+							<input type = "text" id="price" class="form-control form-control-sm" pattern="^[0-9]+$" title="Numbers only" name = "price" required placeholder = "price">
+						</div>
+						<div class="form-group">
+							<label for="madein">Made In </label>
+							<input type = "text" class="form-control form-control-sm" 
+							pattern="^[a-zA-z]+$" title="characters only" name = "madeIn" id="madein" required placeholder = "country of made">
+						</div>
+						<div class="form-group">
+							<label for="img">Image Link </label>
+							<input type = "text" id="img" class="form-control-sm form-control" name = "img_url" placeholder = "image url" required>
+						</div>
+						<div class="form-group">
+							<label for="more"> Addition info </label>
+							<input type = "text" id="more" class="form-control 
+							form-control-sm"  name = "additional_info" required placeholder = "" required pattern="^[a-zA-z].+[a-zA-z]$" title="starting and ending must be characters only">
+						</div>
+						
+							<label for ='dropdown'> select category 	</label>
+							<select name="categories" class="custom-select mb-3" id="dropdown">
+								{% for each in categories %}
+									{% if loop.index==0 %}
+			      						<option value="{{each.id_category}}" selected>{{ each.name }}</option>
+			      					{% else %}
+				      					<option value="{{each.id_category}}">{{each.name}}</option>
+				      				{% endif %}
+				      			{% endfor %}
+			    			</select>
+
+			    			
+			    	</div>	
+			    	<div class="text-center card-footer">
+						<input type = "submit" name = "submit" class="btn btn-success" value = "add">
+						<a href="{{ url_for('home') }}" type="reset" class="btn btn-warning">Cancel</a> 
+					</div>
+					
+				</form>
+			</div>
+		</div>
+
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "parent_layout.html" %}
+
+{% block content %}
+
+	{% if state[0] %}
+	
+		<div class="container">
+			
+			<div class="card">
+
+				<div class="card-body text-center">
+
+				 	<form action="{{ url_for('newCategory') }}" method="POST" >
+	    			
+	    				<div class="form-group">
+	      					<label for="cat">Category Name:</label>
+	      					<input type="text" name="category_name",placeholder="category" pattern="^[a-zA-z]+$" title="characters only" required id="cat">
+	    				</div>
+	    			
+	    				<input type="submit" name="submit" class="btn btn-success" value="add">
+	    				<a href="{{url_for('home')}}" type="reset" class="btn btn-warning">Cancel</a>
+
+					</form>
+	  				
+
+				</div>
+
+			</div>
+
+		</div>
+
+	{% endif %}
+		
+
+{% endblock %}

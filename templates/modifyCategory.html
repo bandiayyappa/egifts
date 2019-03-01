@@ -1,0 +1,66 @@
+{% extends "parent_layout.html" %}
+
+{% block content %}
+
+	<div class="container" style="width:fit-content; ">
+		<div class="card  text-center">
+			{% if categories %}
+				<a href="#" 
+					class="card-title"> These are the Categories You have permission to modify
+				</a>
+				
+				{% for category in categories %}
+
+						<div class="card-footer ">
+								
+							<a href="/egifts/category/{{category.id_category}}/edit"
+								 class="card-link btn btn-outline-success" style="float:left;">
+								edit	
+							</a>
+						 
+							<a class="card-link href="/egifts/category/{{category.id_category}}"> {{category.name}} 
+
+							</a>
+							
+							<!-- Button to Open the Modal -->
+							<button type="button" class=" card-link btn btn-outline-warning "  data-toggle="modal" data-target="#myModal">
+							Delete
+							</button>
+
+					  		<!-- The Modal -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-dialog-centered">
+						      		<div class="modal-content">
+						      
+								        <!-- Modal Header -->
+								        <div class="modal-header">
+								          <h4 class="modal-title">Deleting </h4>
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        </div>
+						        
+								        <!-- Modal body -->
+								        <div class="modal-body">
+								          {{category.name}}
+								        </div>
+						        
+								        <!-- Modal footer -->
+								        <div class="modal-footer">
+											<button type="button" class="btn btn-outline-dark" data-dismiss="modal">Cancel</button>
+											<a class="card-link btn btn-outline-danger btn-block" href="/egifts/category/{{category.id_category}}/delete" style="float:right">
+												delete	
+											</a>
+								        </div>
+						      		</div>
+						    	</div>
+							</div>
+								
+						</div>
+
+				{% endfor %}
+
+			{% endif %}
+			
+		</div>
+	</div>
+
+{% endblock %}

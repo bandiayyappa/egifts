@@ -1,0 +1,39 @@
+{% extends "parent_layout.html" %}
+
+{% block content %}
+	{% if category_name %}
+	 	{{ category_name }} gift items
+	 {% endif %}
+	<div class="container">
+		<div class="row">
+			
+			{% for gift in items %}
+				<div class="col-sm-4 col-lg-4 col-md-4 py-4">
+           			<div class="item card border-dark h-100" data-id_category="{{gift.id_category}}" data-id_item="{{gift.id_item}}">
+								<img src="{{gift.img_url}}" class="mx-auto d-block card-img-top" alt="image not found"> 
+							<div class="card-body ">
+								<dl>
+									<dt>Name </dt>
+									<dd class="text-center">{{gift.name}} </dd>
+									<dt>Price</dt>
+									<dd class="text-center">{{gift.price}}</dd>
+								</dl>
+								
+							</div> 
+					</div>
+				</div>		
+			{% endfor %}
+		</div>
+	</div>
+	<script >
+		$('.item').click(function(){
+			
+			var id_category = $(this).data('id_category');
+			var id_item =  $(this).data('id_item');
+			window.location.href = "/egifts/category/"+id_category+"/"+id_item;
+			
+		})
+	</script>
+
+
+{% endblock %}
